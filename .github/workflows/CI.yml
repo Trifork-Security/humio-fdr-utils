@@ -32,6 +32,7 @@ jobs:
             README.md
             manifest.yaml
             */*
+            !docs/*
             !LICENSE
             !.*
 

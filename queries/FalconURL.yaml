@@ -1,17 +1,20 @@
 name: FalconURL
+description: "User function that return the correct Falcon URL based on region."
 visualization:
   options:
-    columns: '[{"type":"field","fieldName":"@timestamp","width":210},{"type":"field","fieldName":"@rawstring"}]'
+    columns: '@timestamp::210,@rawstring::auto'
     newestAtBottom: 'true'
     showOnlyFirstLine: 'false'
   type: list-view
 $schema: https://schemas.humio.com/query/v0.1.0
 timeInterval:
   isLive: false
-  start: 7d
-queryString: "\"falcon.region\" := ?region\n| \"falcon.region\" := upper(\"falcon.region\"\
-  )\n| case {\n    \"falcon.region\" =  \"US-1\" | \"falcon.url\" := \"https://falcon.crowdstrike.com\"\
-  ;\n    \"falcon.region\" = \"US-2\" | \"falcon.url\" := \"https://falcon.us-2.crowdstrike.com\"\
-  ;\n    \"falcon.region\" = \"EU\" | \"falcon.url\" := \"https://falcon.eu-1.crowdstrike.com\"\
-  ;\n    \"falcon.region\" = \"GOV\" | \"falcon.url\" := \"https://falcon.laggar.gcw.crowdstrike.com\"\
-  ;\n    @function.error := \"Invalid region selected!\"\n}  "
+  start: 1d
+queryString: "\"falcon.region\" := ?{region=\"US-1\"}\n| \"falcon.region\" := upper(\"\
+  falcon.region\")\n| case {\n    \"falcon.region\" =  \"US-1\" | \"falcon.url\" :=\
+  \ \"https://falcon.crowdstrike.com\";\n    \"falcon.region\" = \"US-2\" | \"falcon.url\"\
+  \ := \"https://falcon.us-2.crowdstrike.com\";\n    \"falcon.region\" = \"EU-1\"\
+  \  OR \"falcon.region\" = \"EU-1\" | \"falcon.url\" := \"https://falcon.eu-1.crowdstrike.com\"\
+  ;\n    \"falcon.region\" = \"US-GOV-1\" | \"falcon.url\" := \"https://falcon.laggar.gcw.crowdstrike.com\"\
+  ;\n    @error.function := format(\"Invalid region \\\"%s\\\" selected!\", field=\"\
+  falcon.region\")\n}  "

@@ -1,13 +1,17 @@
 name: ProcessExplorerTarget
+description: "Return valid link to a process explorer of a target process ID."
 visualization:
   options:
-    columns: '[{"type":"field","fieldName":"@timestamp","width":210},{"type":"field","fieldName":"@rawstring"}]'
+    columns: '@timestamp::210,@rawstring::auto'
     newestAtBottom: 'true'
     showOnlyFirstLine: 'false'
   type: list-view
 $schema: https://schemas.humio.com/query/v0.1.0
 timeInterval:
   isLive: false
-  start: 7d
-queryString: '"Process Explorer" := format("[Process Explorer](%s/investigate/process-explorer/%s/%s)",
-  field=["falcon.url", "aid", "TargetProcessId"])'
+  start: 1d
+queryString: |-
+  case {
+      "falcon.url"=* "aid"=* "TargetProcessId"=* | "falcon.process_explorer_target" := format("[Process Explorer](%s/investigate/process-explorer/%s/%s?_cid=%s)", field=["falcon.url", "aid", "TargetProcessId", "#cid"]);
+      * | "falcon.process_explorer_target" := "No link"
+  }

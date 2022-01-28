@@ -1,13 +1,17 @@
 name: RTR
+description: Return valid link to a RTR session for a host."
 visualization:
   options:
-    columns: '[{"type":"field","fieldName":"@timestamp","width":210},{"type":"field","fieldName":"@rawstring"}]'
+    columns: '@timestamp::210,@rawstring::auto'
     newestAtBottom: 'true'
     showOnlyFirstLine: 'false'
   type: list-view
 $schema: https://schemas.humio.com/query/v0.1.0
 timeInterval:
   isLive: false
-  start: 7d
-queryString: '"RTR" := format("[RTR](%s/activity/real-time-response/console/?start=hosts&aid=%s)",
-  field=["falcon.url", "aid"])'
+  start: 1d
+queryString: |
+  case {
+      "falcon.url"=* "aid"=* "#cid"=* | "falcon.RTR" := format("[RTR](%s/activity/real-time-response/console/?start=hosts&aid=%s&_cid=%s)", field=["falcon.url", "aid", "#cid"]);
+      * | "falcon.RTR" := "No link"
+  }
