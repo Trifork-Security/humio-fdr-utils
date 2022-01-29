@@ -1,0 +1,41 @@
+name: SignInfoFlags
+description: "Parses SignInfoFlags to multiple bools."
+visualization:
+  options:
+    columns: '[{"type":"field","fieldName":"@timestamp","width":210},{"type":"field","fieldName":"@rawstring"}]'
+    newestAtBottom: 'true'
+    showOnlyFirstLine: 'false'
+  type: list-view
+$schema: https://schemas.humio.com/query/v0.1.0
+timeInterval:
+  isLive: false
+  start: 1d
+queryString: |-
+  falcon.sign.self_signed := SignInfoFlags % 1 == 1
+  | _calc := SignInfoFlags / 2 | math:floor(_calc) | falcon.sign.ms_signed := _floor % 2 == 1
+  | _calc := SignInfoFlags / 4 | math:floor(_calc) | falcon.sign.test_signed := _floor % 2 == 1
+  | _calc := SignInfoFlags / 8 | math:floor(_calc) | falcon.sign.ms_cross_signed := _floor % 2 == 1
+  | _calc := SignInfoFlags / 16 | math:floor(_calc) | falcon.sign.cat_signed := _floor % 2 == 1
+  | _calc := SignInfoFlags / 32 | math:floor(_calc) | falcon.sign.drm_signed := _floor % 2 == 1
+  | _calc := SignInfoFlags / 64 | math:floor(_calc) | falcon.sign.drm_test_signed := _floor % 2 == 1
+  | _calc := SignInfoFlags / 128 | math:floor(_calc) | falcon.sign.ms_cat_signed := _floor % 2 == 1
+  | _calc := SignInfoFlags / 256 | math:floor(_calc) | falcon.sign.catalogs_reloaded := _floor % 2 == 1
+  | _calc := SignInfoFlags / 512 | math:floor(_calc) | falcon.sign.no_signature := _floor % 2 == 1
+  | _calc := SignInfoFlags / 1024 | math:floor(_calc) | falcon.sign.invalid_sign_chain := _floor % 2 == 1
+  | _calc := SignInfoFlags / 2048 | math:floor(_calc) | falcon.sign.sign_hash_mismatch := _floor % 2 == 1
+  | _calc := SignInfoFlags / 4096 | math:floor(_calc) | falcon.sign.no_code_key_usage := _floor % 2 == 1
+  | _calc := SignInfoFlags / 8192 | math:floor(_calc) | falcon.sign.no_page_hashes := _floor % 2 == 1
+  | _calc := SignInfoFlags / 16384 | math:floor(_calc) | falcon.sign.failed_cert_check := _floor % 2 == 1
+  | _calc := SignInfoFlags / 32768 | math:floor(_calc) | falcon.sign.no_embedded_cert := _floor % 2 == 1
+  | _calc := SignInfoFlags / 65536 | math:floor(_calc) | falcon.sign.failed_copy_keys := _floor % 2 == 1
+  | _calc := SignInfoFlags / 131072 | math:floor(_calc) | falcon.sign.unknown_error := _floor % 2 == 1
+  | _calc := SignInfoFlags / 262144 | math:floor(_calc) | falcon.sign.has_valid_signature := _floor % 2 == 1
+  | _calc := SignInfoFlags / 524288 | math:floor(_calc) | falcon.sign.embedded_signed := _floor % 2 == 1
+  | _calc := SignInfoFlags / 1048576 | math:floor(_calc) | falcon.sign.3rd_party_root := _floor % 2 == 1
+  | _calc := SignInfoFlags / 2097152 | math:floor(_calc) | falcon.sign.trusted_boot_root := _floor % 2 == 1
+  | _calc := SignInfoFlags / 4194304 | math:floor(_calc) | falcon.sign.uefi_root := _floor % 2 == 1
+  | _calc := SignInfoFlags / 8388608 | math:floor(_calc) | falcon.sign.prs_win81_root := _floor % 2 == 1
+  | _calc := SignInfoFlags / 16777216 | math:floor(_calc) | falcon.sign.flight_root := _floor % 2 == 1
+  | _calc := SignInfoFlags / 33554432 | math:floor(_calc) | falcon.sign.apple_signed := _floor % 2 == 1
+  | _calc := SignInfoFlags / 67108864 | math:floor(_calc) | falcon.sign.esbcache := _floor % 2 == 1
+  | _calc := SignInfoFlags / 134217728 | math:floor(_calc) | falcon.sign.no_cached_data := _floor % 2 == 1

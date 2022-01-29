@@ -30,6 +30,7 @@ Documentation for understanding FDR and the events given, please refer to the do
   * [<em>ProcessExplorerParent()</em>](#processexplorerparent)
   * [<em>FileName()</em>](#filename)
   * [<em>FileNameMV()</em>](#filenamemv)
+  * [<em>SignInfoFlags()</em>](#signinfoflags)
 * [Contribution](#contribution)
 * [License](#license)
 
@@ -254,6 +255,68 @@ Parses ImageFileName (multivalue string) and returns as FileName as multivalue s
 | groupBy(["aid", "ParentProcessId"], function=[count(), {collect(ImageFileName)}])
 | $crowdstrike/fdr-utils:FileNameMV()
 | drop(ImageFileName)
+```
+
+</details><br />
+
+## _SignInfoFlags()_
+
+Parses SignInfoFlags to multiple bools. Current not great parsing oppertunities, but the fields are extracted.
+
+<details><summary>Details</summary><br />
+
+ **Inputs**:
+
+| name            | input type | type   | Description                                                                                                                                                                |
+|-----------------|------------|--------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| `SignInfoFlags` | field      | string | decimal representation of hexadecimal flags for binaries, e.g. |
+
+<br />
+
+**Outputs**:
+
+| name                              | return type | type | Description                                     |
+|-----------------------------------|-------------|------|-------------------------------------------------|
+| `falcon.sign.self_signed`         | field       | bool | SIGNATURE_FLAG_SELF_SIGNED (0x00000001)         |
+| `falcon.sign.ms_signed`           | field       | bool | SIGNATURE_FLAG_MS_SIGNED (0x00000002)           |
+| `falcon.sign.test_signed`         | field       | bool | SIGNATURE_FLAG_TEST_SIGNED (0x00000004)         |
+| `falcon.sign.ms_cross_signed`     | field       | bool | SIGNATURE_FLAG_MS_CROSS_SIGNED (0x00000008)     |
+| `falcon.sign.cat_signed`          | field       | bool | SIGNATURE_FLAG_CAT_SIGNED (0x00000010)          |
+| `falcon.sign.drm_signed`          | field       | bool | SIGNATURE_FLAG_DRM_SIGNED (0x00000020)          |
+| `falcon.sign.drm_test_signed`     | field       | bool | SIGNATURE_FLAG_DRM_TEST_SIGNED (0x00000040)     |
+| `falcon.sign.ms_cat_signed`       | field       | bool | SIGNATURE_FLAG_MS_CAT_SIGNED (0x00000080)       |
+| `falcon.sign.catalogs_reloaded`   | field       | bool | SIGNATURE_FLAG_CATALOGS_RELOADED (0x00000100)   |
+| `falcon.sign.no_signature`        | field       | bool | SIGNATURE_FLAG_NO_SIGNATURE (0x00000200)        |
+| `falcon.sign.invalid_sign_chain`  | field       | bool | SIGNATURE_FLAG_INVALID_SIGN_CHAIN (0x00000400)  |
+| `falcon.sign.sign_hash_mismatch`  | field       | bool | SIGNATURE_FLAG_SIGN_HASH_MISMATCH (0x00000800)  |
+| `falcon.sign.no_code_key_usage`   | field       | bool | SIGNATURE_FLAG_NO_CODE_KEY_USAGE (0x00001000)   |
+| `falcon.sign.no_page_hashes`      | field       | bool | SIGNATURE_FLAG_NO_PAGE_HASHES (0x00002000)      |
+| `falcon.sign.failed_cert_check`   | field       | bool | SIGNATURE_FLAG_FAILED_CERT_CHECK (0x00004000)   |
+| `falcon.sign.no_embedded_cert`    | field       | bool | SIGNATURE_FLAG_NO_EMBEDDED_CERT (0x00008000)    |
+| `falcon.sign.failed_copy_keys`    | field       | bool | SIGNATURE_FLAG_FAILED_COPY_KEYS (0x00010000)    |
+| `falcon.sign.unknown_error`       | field       | bool | SIGNATURE_FLAG_UNKNOWN_ERROR (0x00020000)       |
+| `falcon.sign.has_valid_signature` | field       | bool | SIGNATURE_FLAG_HAS_VALID_SIGNATURE (0x00040000) |
+| `falcon.sign.embedded_signed`     | field       | bool | SIGNATURE_FLAG_EMBEDDED_SIGNED (0x00080000)     |
+| `falcon.sign.3rd_party_root`      | field       | bool | SIGNATURE_FLAG_3RD_PARTY_ROOT (0x00100000)      |
+| `falcon.sign.trusted_boot_root`   | field       | bool | SIGNATURE_FLAG_TRUSTED_BOOT_ROOT (0x00200000)   |
+| `falcon.sign.uefi_root`           | field       | bool | SIGNATURE_FLAG_UEFI_ROOT (0x00400000)           |
+| `falcon.sign.prs_win81_root`      | field       | bool | SIGNATURE_FLAG_PRS_WIN81_ROOT (0x00800000)      |
+| `falcon.sign.flight_root`         | field       | bool | SIGNATURE_FLAG_FLIGHT_ROOT (0x01000000)         |
+| `falcon.sign.apple_signed`        | field       | bool | SIGNATURE_FLAG_APPLE_SIGNED (0x02000000)        |
+| `falcon.sign.esbcache`            | field       | bool | SIGNATURE_FLAG_ESBCACHE (0x04000000)            |
+| `falcon.sign.no_cached_data`      | field       | bool | SIGNATURE_FLAG_NO_CACHED_DATA (0x08000000)      |
+
+
+<br />
+
+**Example**:
+
+```
+"#event_simpleName" = ProcessRollup2
+| "System.Management.Automation.ni.dll"
+| $crowdstrike/fdr-utils:FileName()
+| $crowdstrike/fdr-utils:SignInfoFlags()
+| falcon.sign.ms_signed = false
 ```
 
 </details><br />
