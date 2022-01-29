@@ -21,10 +21,10 @@ Documentation for understanding FDR and the events given, please refer to the do
 
 * [Installation](#installation)
 * [Usage](#usage)
-  * [<em>FalconURL(region)</em>](#falconurlregion)
-  * [<em>RTR()</em>](#rtr)
-  * [<em>ProcessExplorerTarget()</em>](#processexplorertarget)
-  * [<em>ProcessExplorerParent()</em>](#processexplorerparent)
+  * [_FalconURL(region)_](#falconurlregion)
+  * [_RTR()_](#rtr)
+  * [_ProcessExplorerTarget()_](#processexplorertarget)
+  * [_ProcessExplorerParent()_](#processexplorerparent)
 * [Contribution](#contribution)
 * [License](#license)
 
