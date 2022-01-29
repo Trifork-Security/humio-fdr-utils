@@ -1,5 +1,3 @@
-[![CI](https://github.com/kra-ts/humio-fdr-utils/actions/workflows/CI.yml/badge.svg)](https://github.com/kra-ts/humio-fdr-utils/actions/workflows/CI.yml)
-
 # Humio FDR Utilities
 
 This [Humio Package](https://docs.humio.com/docs/packages/)  gives content to Humio that can aid and assist in formatting and parsing of data coming from CrowdStrike's Falcon platform with FDR.
