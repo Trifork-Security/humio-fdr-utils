@@ -203,15 +203,15 @@ Parses ImageFileName and returns as FileName
 
  **Inputs**:
 
-| name            | input type | type   | Description                        |
-|-----------------|------------|--------|------------------------------------|
+| name            | input type | type   | Description                                                                                                             |
+|-----------------|------------|--------|-------------------------------------------------------------------------------------------------------------------------|
 | `ImageFileName` | field      | string | ImageFileName contains the path to exract FileName from, e.g.<br /> `\Device\HarddiskVolume4\Windows\System32\net1.exe` |
 <br />
 
 **Outputs**:
 
-| name       | return type | type   | Description                                               |
-|------------|-------------|--------|-----------------------------------------------------------|
+| name       | return type | type   | Description                                     |
+|------------|-------------|--------|-------------------------------------------------|
 | `FileName` | field       | string | FileName for the inputted path, e.g. `net1.exe` |
 
 <br />
@@ -220,7 +220,7 @@ Parses ImageFileName and returns as FileName
 
 ```
 #type = FDR "#event_simpleName" = ProcessRollup2
-| groupBy(["aid", "ParentProcessId"], function={$FileName() | collect(FileName)})
+| groupBy(["aid", "ParentProcessId"], function={$crowdstrike/fdr-utils:FileName() | collect(FileName)})
 ```
 
 </details><br />
