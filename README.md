@@ -1,4 +1,6 @@
-[![CI](https://github.com/kra-ts/humio-fdr-utils/actions/workflows/CI.yml/badge.svg)](https://github.com/kra-ts/humio-fdr-utils/actions/workflows/CI.yml)
+[![release](https://github.com/kra-ts/humio-fdr-utils/actions/workflows/release.yml/badge.svg)](https://github.com/kra-ts/humio-fdr-utils/actions/workflows/release.yml)
+[![build](https://github.com/kra-ts/humio-fdr-utils/actions/workflows/build.yml/badge.svg)](https://github.com/kra-ts/humio-fdr-utils/actions/workflows/build.yml)
+
 
 # Humio FDR Utilities
 
@@ -20,6 +22,7 @@ Documentation for understanding FDR and the events given, please refer to the do
 # Table of contents
 
 * [Installation](#installation)
+  * [Upgrade](#upgrade)
 * [Usage](#usage)
   * [<em>FalconURL(region)</em>](#falconurlregion)
   * [<em>RTR()</em>](#rtr)
@@ -30,7 +33,18 @@ Documentation for understanding FDR and the events given, please refer to the do
 
 # Installation
 
-Will be described at next commit!
+1. Go to the [latest release](https://github.com/kra-ts/humio-fdr-utils/releases/latest) and download the package.
+
+2. In your Humio Cluster go to the repo/view you'd like to install the package.
+
+3. Go to _Settings -> Packages -> Installed_ and click `import package` 
+
+4. Drag and drop the zip file or select from filsystem and click install in the summary view
+
+## Upgrade
+
+Repeat the steps from [Installation](#installation) and click update
+
 <br /><br />
 
 # Usage
