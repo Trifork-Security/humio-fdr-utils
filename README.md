@@ -12,11 +12,11 @@ For ingesting the data this project assumes the use of [fdr2humio](https://githu
 
 Documentation for understanding FDR and the events given, please refer to the documentation within the Falcon Platform.
 
-| Region | Falcon Data Replicator | Event Data Dictonary |
-| -------- | :--------------------------------------------------------------------------------------: | :----------------------------------------------------------------------------: |
-| US-1     | [link](https://falcon.crowdstrike.com/documentation/9/falcon-data-replicator)            | [link](https://falcon.crowdstrike.com/documentation/26/events-data-dictionary) |
-| US-2     | [link](https://falcon.us-2.crowdstrike.com/documentation/9/falcon-data-replicator)       | [link](https://falcon.us-2.crowdstrike.com/documentation/26/events-data-dictionary) |
-| EU-1     | [link](https://falcon.eu-1.crowdstrike.com/documentation/9/falcon-data-replicator)       | [link](https://falcon.eu-1.crowdstrike.com/documentation/26/events-data-dictionary) |
+| Region   |                                  Falcon Data Replicator                                  |                                   Event Data Dictonary                                    |
+|----------|:----------------------------------------------------------------------------------------:|:-----------------------------------------------------------------------------------------:|
+| US-1     |      [link](https://falcon.crowdstrike.com/documentation/9/falcon-data-replicator)       |      [link](https://falcon.crowdstrike.com/documentation/26/events-data-dictionary)       |
+| US-2     |    [link](https://falcon.us-2.crowdstrike.com/documentation/9/falcon-data-replicator)    |    [link](https://falcon.us-2.crowdstrike.com/documentation/26/events-data-dictionary)    |
+| EU-1     |    [link](https://falcon.eu-1.crowdstrike.com/documentation/9/falcon-data-replicator)    |    [link](https://falcon.eu-1.crowdstrike.com/documentation/26/events-data-dictionary)    |
 | GOV-US-1 | [link](https://falcon.laggar.gcw.crowdstrike.com/documentation/9/falcon-data-replicator) | [link](https://falcon.laggar.gcw.crowdstrike.com/documentation/26/events-data-dictionary) |
 
 # Table of contents
@@ -28,6 +28,8 @@ Documentation for understanding FDR and the events given, please refer to the do
   * [<em>RTR()</em>](#rtr)
   * [<em>ProcessExplorerTarget()</em>](#processexplorertarget)
   * [<em>ProcessExplorerParent()</em>](#processexplorerparent)
+  * [<em>FileName()</em>](#filename)
+  * [<em>FileNameMV()</em>](#filenamemv)
 * [Contribution](#contribution)
 * [License](#license)
 
@@ -67,10 +69,10 @@ Retrieve the correct base URL for the Falcon platform based on region  e.g. `htt
 
 **Outputs**:
 
-| name            | return type | type   | Description                                                             |
-| ------------    | ----------- | ------ | ----------------------------------------------------------------------- |
-| `falcon.region` | field       | string | The region parameter in all-uppercase                                   |
-| `falcon.url`    | field       | string | Will return the url for the Falcon platform for the specified region    |
+| name            | return type | type   | Description                                                          |
+|-----------------|-------------|--------|----------------------------------------------------------------------|
+| `falcon.region` | field       | string | The region parameter in all-uppercase                                |
+| `falcon.url`    | field       | string | Will return the url for the Falcon platform for the specified region |
 
 <br />
 
@@ -91,19 +93,19 @@ With input of base URL for Falcon, generates a markdown RTR link to connect to t
 
 **Inputs**:
 
-| name         | input type  | type   | Description                     |
-| ------------ | ----------- | ------ | ------------------------------- |
-| `aid`        | field       | string | AID of the target agent         |
-| `#cid`       | field       | string | CID of the target tenant        |
-| `falcon.url` | field       | string | Base URL of the Falcon platform |
+| name         | input type | type   | Description                     |
+|--------------|------------|--------|---------------------------------|
+| `aid`        | field      | string | AID of the target agent         |
+| `#cid`       | field      | string | CID of the target tenant        |
+| `falcon.url` | field      | string | Base URL of the Falcon platform |
 
 <br />
 
 **Outputs**:
 
-| name         | return type | type    | Description                                          |
-| ------------ | ----------- | ------- | ---------------------------------------------------- |
-| `falcon.RTR` | field       | string  | Markdown fomatted string that gives a link to do RTR |
+| name         | return type | type   | Description                                          |
+|--------------|-------------|--------|------------------------------------------------------|
+| `falcon.RTR` | field       | string | Markdown fomatted string that gives a link to do RTR |
 
 <br />
 
@@ -127,20 +129,20 @@ With input of base URL for Falcon, generates a markdown link to show process exp
 
 **Inputs**:
 
-| name              | input type  | type   | Description                        |
-| ----------------- | ----------- | ------ | ---------------------------------- |
-| `TargetProcessId` | field       | string | TargetProcessId to create link for |
-| `aid`             | field       | string | AID of the target agent            |
-| `#cid`            | field       | string | CID of the target tenant           |
-| `falcon.url`      | field       | string | Base URL of the Falcon platform    |
+| name              | input type | type   | Description                        |
+|-------------------|------------|--------|------------------------------------|
+| `TargetProcessId` | field      | string | TargetProcessId to create link for |
+| `aid`             | field      | string | AID of the target agent            |
+| `#cid`            | field      | string | CID of the target tenant           |
+| `falcon.url`      | field      | string | Base URL of the Falcon platform    |
 
 <br />
 
 **Outputs**:
 
-| name                             | return type | type    | Description                                               |
-| -------------------------------- | ----------- | ------- | --------------------------------------------------------- |
-| `falcon.process_explorer_target` | field       | string  | Markdown fomatted string linking to the target process ID |
+| name                             | return type | type   | Description                                               |
+|----------------------------------|-------------|--------|-----------------------------------------------------------|
+| `falcon.process_explorer_target` | field       | string | Markdown fomatted string linking to the target process ID |
 
 <br />
 
@@ -164,20 +166,20 @@ With input of base URL for Falcon, generates a markdown link to show process exp
 
  **Inputs**:
 
-| name              | input type  | type   | Description                        |
-| ----------------- | ----------- | ------ | ---------------------------------- |
-| `ParentProcessId` | field       | string | ParentProcessId to create link for |
-| `aid`             | field       | string | AID of the target agent            |
-| `#cid`            | field       | string | CID of the target tenant           |
-| `falcon.url`      | field       | string | Base URL of the Falcon platform    |
+| name              | input type | type   | Description                        |
+|-------------------|------------|--------|------------------------------------|
+| `ParentProcessId` | field      | string | ParentProcessId to create link for |
+| `aid`             | field      | string | AID of the target agent            |
+| `#cid`            | field      | string | CID of the target tenant           |
+| `falcon.url`      | field      | string | Base URL of the Falcon platform    |
 
 <br />
 
 **Outputs**:
 
-| name                             | return type | type    | Description                                               |
-| -------------------------------- | ----------- | ------- | --------------------------------------------------------- |
-| `falcon.process_explorer_parent` | field       | string  | Markdown fomatted string linking to the parent process ID |
+| name                             | return type | type   | Description                                               |
+|----------------------------------|-------------|--------|-----------------------------------------------------------|
+| `falcon.process_explorer_parent` | field       | string | Markdown fomatted string linking to the parent process ID |
 
 <br />
 
@@ -193,6 +195,68 @@ With input of base URL for Falcon, generates a markdown link to show process exp
 
 </details><br />
 
+## _FileName()_
+
+Parses ImageFileName and returns as FileName
+
+<details><summary>Details</summary><br />
+
+ **Inputs**:
+
+| name            | input type | type   | Description                        |
+|-----------------|------------|--------|------------------------------------|
+| `ImageFileName` | field      | string | ImageFileName contains the path to exract FileName from, e.g.<br /> `\Device\HarddiskVolume4\Windows\System32\net1.exe` |
+<br />
+
+**Outputs**:
+
+| name       | return type | type   | Description                                               |
+|------------|-------------|--------|-----------------------------------------------------------|
+| `FileName` | field       | string | FileName for the inputted path, e.g. `net1.exe` |
+
+<br />
+
+**Example**:
+
+```
+#type = FDR "#event_simpleName" = ProcessRollup2
+| groupBy(["aid", "ParentProcessId"], function={$FileName() | collect(FileName)})
+```
+
+</details><br />
+
+## _FileNameMV()_
+
+Parses ImageFileName (multivalue string) and returns as FileName as multivalue string
+
+<details><summary>Details</summary><br />
+
+ **Inputs**:
+
+| name            | input type | type   | Description                                                                                                                                                                |
+|-----------------|------------|--------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| `ImageFileName` | field      | string | ImageFileName contains the paths to exract FileNames from, e.g.<br /> `\Device\HarddiskVolume4\Windows\System32\net1.exe \Device\HarddiskVolume4\Windows\System32\net.exe` |
+
+<br />
+
+**Outputs**:
+
+| name       | return type | type   | Description                                              |
+|------------|-------------|--------|----------------------------------------------------------|
+| `FileName` | field       | string | FileNames for the inputted path, e.g. `net1.exe net.exe` |
+
+<br />
+
+**Example**:
+
+```
+#type = FDR "#event_simpleName" = ProcessRollup2
+| groupBy(["aid", "ParentProcessId"], function=[count(), {collect(ImageFileName)}])
+| $crowdstrike/fdr-utils:FileNameMV()
+| drop(ImageFileName)
+```
+
+</details><br />
 
 # Contribution
 
