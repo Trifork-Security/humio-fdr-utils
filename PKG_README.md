@@ -1,5 +1,3 @@
-[![CI](https://github.com/kra-ts/humio-fdr-utils/actions/workflows/CI.yml/badge.svg)](https://github.com/kra-ts/humio-fdr-utils/actions/workflows/CI.yml)
-
 # Humio FDR Utilities
 
 This [Humio Package](https://docs.humio.com/docs/packages/)  gives content to Humio that can aid and assist in formatting and parsing of data coming from CrowdStrike's Falcon platform with FDR.
@@ -21,17 +19,12 @@ Documentation for understanding FDR and the events given, please refer to the do
 
 * [Installation](#installation)
 * [Usage](#usage)
-  * [<em>FalconURL(region)</em>](#falconurlregion)
-  * [<em>RTR()</em>](#rtr)
-  * [<em>ProcessExplorerTarget()</em>](#processexplorertarget)
-  * [<em>ProcessExplorerParent()</em>](#processexplorerparent)
 * [Contribution](#contribution)
 * [License](#license)
 
 # Installation
 
-Will be described at next commit!
-<br /><br />
+Will be described at later commit!
 
 # Usage
 
@@ -41,41 +34,30 @@ As this is a bundled package, when installed in Humio, the package will be reffe
 
 Retrieve the correct base URL for the Falcon platform based on region  e.g. `https://falcon.eu-1.crowdstrike.com`.
 
-<details><summary>Details</summary><br />
-
-**Parameters**:
+Parameters:
 
 | name     | type   | required | default | Description                                     |
 | -------- | :----: | :------: | :-----: | ----------------------------------------------- |
 | `region` | string | No       | `US-1`  | Regions defined `US-1` `US-2` `EU-1` `US-GOV-1` |  
 
-<br />
-
-**Outputs**:
+Outputs:
 
 | name            | return type | type   | Description                                                             |
 | ------------    | ----------- | ------ | ----------------------------------------------------------------------- |
 | `falcon.region` | field       | string | The region parameter in all-uppercase                                   |
 | `falcon.url`    | field       | string | Will return the url for the Falcon platform for the specified region    |
 
-<br />
-
-**Example**:
+Example:
 
 ```
 $crowdstrike/fdr-utils:FalconURL(region=eu-1)
 ```
 
-</details><br />
-
-
 ## _RTR()_
 
 With input of base URL for Falcon, generates a markdown RTR link to connect to the host.
 
-<details><summary>Details</summary><br />
-
-**Inputs**:
+Inputs:
 
 | name         | input type  | type   | Description                     |
 | ------------ | ----------- | ------ | ------------------------------- |
@@ -83,17 +65,13 @@ With input of base URL for Falcon, generates a markdown RTR link to connect to t
 | `#cid`       | field       | string | CID of the target tenant        |
 | `falcon.url` | field       | string | Base URL of the Falcon platform |
 
-<br />
-
-**Outputs**:
+Outputs:
 
 | name         | return type | type    | Description                                          |
 | ------------ | ----------- | ------- | ---------------------------------------------------- |
 | `falcon.RTR` | field       | string  | Markdown fomatted string that gives a link to do RTR |
 
-<br />
-
-**Example**:
+Example:
 
 ```
 #type="FDR" #event_simpleName != * ComputerName = * aid = *
@@ -103,15 +81,11 @@ With input of base URL for Falcon, generates a markdown RTR link to connect to t
 | table([aid, ComputerName, falcon.RTR])
 ```
 
-</details><br />
-
 ## _ProcessExplorerTarget()_
 
 With input of base URL for Falcon, generates a markdown link to show process explorer of that process.
 
-<details><summary>Details</summary><br />
-
-**Inputs**:
+Inputs:
 
 | name              | input type  | type   | Description                        |
 | ----------------- | ----------- | ------ | ---------------------------------- |
@@ -120,17 +94,13 @@ With input of base URL for Falcon, generates a markdown link to show process exp
 | `#cid`            | field       | string | CID of the target tenant           |
 | `falcon.url`      | field       | string | Base URL of the Falcon platform    |
 
-<br />
-
-**Outputs**:
+Outputs:
 
 | name                             | return type | type    | Description                                               |
 | -------------------------------- | ----------- | ------- | --------------------------------------------------------- |
 | `falcon.process_explorer_target` | field       | string  | Markdown fomatted string linking to the target process ID |
 
-<br />
-
-**Example**:
+Example:
 
 ```
 #type="FDR" #event_simpleName=ProcessRollup2 TargetProcessId=* /admin/i (net.exe or net1.exe)
@@ -140,15 +110,11 @@ With input of base URL for Falcon, generates a markdown link to show process exp
 | drop([#cid, falcon.region, falcon.url])
 ```
 
-</details><br />
-
 ## _ProcessExplorerParent()_
 
 With input of base URL for Falcon, generates a markdown link to show process explorer of that process.
 
-<details><summary>Details</summary><br />
-
- **Inputs**:
+Inputs:
 
 | name              | input type  | type   | Description                        |
 | ----------------- | ----------- | ------ | ---------------------------------- |
@@ -157,17 +123,13 @@ With input of base URL for Falcon, generates a markdown link to show process exp
 | `#cid`            | field       | string | CID of the target tenant           |
 | `falcon.url`      | field       | string | Base URL of the Falcon platform    |
 
-<br />
-
-**Outputs**:
+Outputs:
 
 | name                             | return type | type    | Description                                               |
 | -------------------------------- | ----------- | ------- | --------------------------------------------------------- |
 | `falcon.process_explorer_parent` | field       | string  | Markdown fomatted string linking to the parent process ID |
 
-<br />
-
-**Example**:
+Example:
 
 ```
 #type="FDR" #event_simpleName=ProcessRollup2 ParentProcessId=* /admin/i (net.exe or net1.exe)
@@ -177,17 +139,12 @@ With input of base URL for Falcon, generates a markdown link to show process exp
 | drop([#cid, falcon.region, falcon.url])
 ```
 
-</details><br />
-
-
 # Contribution
 
 This is a sample repo started from posting on [a post](https://www.reddit.com/r/crowdstrike/comments/ry6ma0/20220107_cool_query_friday_adding_process/) from [Cool Query Friday](https://www.reddit.com/r/crowdstrike/collection/8016c539-c284-442c-9726-6bc05053d7a9/) at [r/crowdstrike](https://www.reddit.com/r/crowdstrike/).
 
 Please feel free tro contribute at any time by doing a PR.
 
-<br />
-
 # License
 
-[Apache License 2.0](/LICENSE)
+[Apache License 2.0](https://github.com/kra-ts/humio-fdr-utils/blob/main/LICENSE)

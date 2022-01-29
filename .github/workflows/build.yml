@@ -1,0 +1,55 @@
+# This is a basic workflow to help you get started with Actions
+
+name: build
+
+# Controls when the workflow will run
+on:
+  push:
+    branches: [ main ]
+
+  pull_request:
+    branches: [ main ]
+
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+
+# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+jobs:
+  # This workflow contains a single job called "build"
+  build:
+    # The type of runner that the job will run on
+    runs-on: ubuntu-latest
+
+    # Steps represent a sequence of tasks that will be executed as part of the job
+    steps:
+      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+      - name: Checkout code
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+
+      - name: Set tag_version number
+        run: |
+          echo "TAG_VERSION=$(git describe --tags --abbrev=0 | awk -F. -v OFS=. '{$NF++;print}')" >> $GITHUB_ENV
+
+      - name: Set version number
+        run: |
+          echo "VERSION=$(echo $TAG_VERSION | cut -c 2-)" >> $GITHUB_ENV
+
+      - name: Replace README
+        run: |
+          mv PKG_README.md README.md
+
+      - name: Set version in manifest.yaml
+        run: |
+          sed -i "s/\${VERSION}/${{ env.VERSION }}/" manifest.yaml
+
+      - uses: actions/upload-artifact@v2
+        with:
+          name: ${{ github.event.repository.name }}-${{ env.VERSION }}
+          path: |
+            ./README.md
+            ./manifest.yaml
+            ./*/*.yaml
+            ./data/*
+            !./.*
