@@ -315,7 +315,7 @@ Parses SignInfoFlags to multiple bools. Current not great parsing oppertunities,
 "#event_simpleName" = ProcessRollup2
 | "System.Management.Automation.ni.dll"
 | $crowdstrike/fdr-utils:FileName()
-| $SignInfoFlags()
+| $crowdstrike/fdr-utils:SignInfoFlags()
 | falcon.sign.ms_signed = false
 ```
 
