@@ -1,0 +1,22 @@
+name: HuntRareCallStackModules
+description: "Hunt processes loading a module rarely used"
+visualization:
+  options: {}
+  type: table-view
+$schema: https://schemas.humio.com/query/v0.1.0
+timeInterval:
+  isLive: false
+  start: 1d
+queryString: |-
+  // ?region field is bugged when set as input to user function. If you need other region other then default, add &$reigon=<URL> to url .. ie. &$reigon=EU-1 and links will work
+  #type = FDR #event_simpleName=ProcessRollup2 CallStackModuleNames=*
+  | $crowdstrike/fdr-utils:CallStackModuleBinary()
+  | join({#type = FDR #event_simpleName=ProcessRollup2 | regex("\\\\Device\\\\HarddiskVolume\\d+(?<falcon.csm.name>.*?(\\.dll|\\.exe))",field="CallStackModuleNames",repeat=True,flags="i") | groupBy([#cid, aid, falcon.csm.name]) | _count < ?{max_loads=50}}, field=[#cid, aid, falcon.csm.name], mode=inner)
+  | groupBy(["#cid", "aid", "ParentProcessId"], function=[selectLast([TargetProcessId, ParentBaseFileName]), count(), min(@timestamp), max(@timestamp), collect(CommandLine, separator=" | ")])
+  | $crowdstrike/fdr-utils:FalconURL(region=?{reigon=US-1})
+  | $crowdstrike/fdr-utils:RTR()
+  | $crowdstrike/fdr-utils:ProcessExplorerTarget()
+  | duration := _max - _min | case {duration != 0 | duration := formatDuration(duration); *}
+  | start := formattime("%Y/%m/%d %H:%M:%S", field=_min)
+  | table([aid, ParentProcessId, ParentBaseFileName, _count, start, duration, falcon.RTR, falcon.process_explorer_target, CommandLine])
+  | sort()
