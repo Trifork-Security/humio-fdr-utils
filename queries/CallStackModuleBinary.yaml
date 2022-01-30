@@ -1,0 +1,16 @@
+name: CallStackModuleBinary
+description: "Parses binaries (exe and dll) pressent in CallStack. Note this wull result as multiple events."
+visualization:
+  options:
+    columns: '[{"type":"field","fieldName":"@timestamp","width":210},{"type":"field","fieldName":"@rawstring"}]'
+    newestAtBottom: 'true'
+    showOnlyFirstLine: 'false'
+  type: list-view
+$schema: https://schemas.humio.com/query/v0.1.0
+timeInterval:
+  isLive: false
+  start: 1d
+queryString: "// Extracting .exe and .dll in CallStackModule, note this is repeating\
+  \ and therefore split events for each hit.\n// Inspired from CQF : https://www.reddit.com/r/crowdstrike/comments/mwuz92/20210423_cool_query_friday_parsing_the_call_stack/\n\
+  regex(\"\\\\\\\\Device\\\\\\\\HarddiskVolume\\\\d+(?<falcon.csm.name>.*?(\\\\.dll|\\\
+  \\.exe))\",field=\"CallStackModuleNames\",repeat=True,flags=\"i\") "

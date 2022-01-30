@@ -321,6 +321,13 @@ Parses SignInfoFlags to multiple bools. Current not great parsing oppertunities,
 
 </details><br />
 
+## _CallStackModuleBinary()_
+
+This function is undocumented, look at the query (in-line commented) for now.  
+Looking into using a wiki for function documentation.
+
+<br />
+
 # Contribution
 
 This is a sample repo started from posting on [a post](https://www.reddit.com/r/crowdstrike/comments/ry6ma0/20220107_cool_query_friday_adding_process/) from [Cool Query Friday](https://www.reddit.com/r/crowdstrike/collection/8016c539-c284-442c-9726-6bc05053d7a9/) at [r/crowdstrike](https://www.reddit.com/r/crowdstrike/).
