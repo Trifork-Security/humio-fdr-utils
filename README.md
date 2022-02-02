@@ -1,5 +1,5 @@
-[![release](https://github.com/kra-ts/humio-fdr-utils/actions/workflows/release.yml/badge.svg)](https://github.com/kra-ts/humio-fdr-utils/actions/workflows/release.yml)
-[![build](https://github.com/kra-ts/humio-fdr-utils/actions/workflows/build.yml/badge.svg)](https://github.com/kra-ts/humio-fdr-utils/actions/workflows/build.yml)
+[![release](https://github.com/Trifork-Security/humio-fdr-utils/actions/workflows/release.yml/badge.svg)](https://github.com/Trifork-Security/humio-fdr-utils/actions/workflows/release.yml)
+[![build](https://github.com/Trifork-Security/humio-fdr-utils/actions/workflows/build.yml/badge.svg)](https://github.com/Trifork-Security/humio-fdr-utils/actions/workflows/build.yml)
 
 
 # Humio FDR Utilities
@@ -36,7 +36,7 @@ Documentation for understanding FDR and the events given, please refer to the do
 
 # Installation
 
-1. Go to the [latest release](https://github.com/kra-ts/humio-fdr-utils/releases/latest) and download the package.
+1. Go to the [latest release](https://github.com/Trifork-Security/humio-fdr-utils/releases/latest) and download the package.
 
 2. In your Humio Cluster go to the repo/view you'd like to install the package.
 

@@ -10,7 +10,7 @@ Documentation for understanding FDR and the events given, please refer to the do
 
 # Usage
 
-As this is a bundled package, when installed in Humio, the package will be reffered to as `crowdstrike/fdr-utils`. This means that to refer any of theese user functions, you have to prepend them with `$crowdstrike/fdr-utils:`followed up the function. Please refer to the [Github Project](https://github.com/kra-ts/humio-fdr-utils) for additional documentation.  
+As this is a bundled package, when installed in Humio, the package will be reffered to as `crowdstrike/fdr-utils`. This means that to refer any of theese user functions, you have to prepend them with `$crowdstrike/fdr-utils:`followed up the function. Please refer to the [Github Project](https://github.com/Trifork-Security/humio-fdr-utils) for additional documentation.  
 
 # Contribution
 
@@ -20,4 +20,4 @@ Please feel free tro contribute at any time by doing a PR.
 
 # License
 
-[Apache License 2.0](https://github.com/kra-ts/humio-fdr-utils/blob/main/LICENSE)
+[Apache License 2.0](https://github.com/Trifork-Security/humio-fdr-utils/blob/main/LICENSE)
