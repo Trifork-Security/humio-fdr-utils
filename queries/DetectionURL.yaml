@@ -1,0 +1,14 @@
+name: DetectionURL
+visualization:
+  options:
+    columns: '[{"type":"field","fieldName":"@timestamp","width":210},{"type":"field","fieldName":"@rawstring"}]'
+    newestAtBottom: 'true'
+    showOnlyFirstLine: 'false'
+  type: list-view
+$schema: https://schemas.humio.com/query/v0.1.0
+timeInterval:
+  isLive: false
+  start: 24h
+queryString: |-
+  "falcon.detection" := replace("^ldt:([0-9a-f]{32}):(.*)", with="$1/$2", field="detection_id")
+  | "falcon.detection_url" := format("%s/activity/detections/detail/%s?_cid=%s", field=[falcon.url, falcon.detection, #cid])
