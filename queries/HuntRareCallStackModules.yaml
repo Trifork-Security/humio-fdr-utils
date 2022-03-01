@@ -13,7 +13,7 @@ queryString: |-
   | $crowdstrike/fdr-utils:CallStackModuleBinary()
   | join({#type = FDR #event_simpleName=ProcessRollup2 | regex("\\\\Device\\\\HarddiskVolume\\d+(?<falcon.csm.name>.*?(\\.dll|\\.exe))",field="CallStackModuleNames",repeat=True,flags="i") | groupBy([#cid, aid, falcon.csm.name]) | _count < ?{max_loads=50}}, field=[#cid, aid, falcon.csm.name], mode=inner)
   | groupBy(["#cid", "aid", "ParentProcessId"], function=[selectLast([TargetProcessId, ParentBaseFileName]), count(), min(@timestamp), max(@timestamp), collect(CommandLine, separator=" | ")])
-  | $crowdstrike/fdr-utils:FalconURL(region=?{reigon=US-1})
+  | $crowdstrike/fdr-utils:FalconURL(region=?{region=US-1})
   | $crowdstrike/fdr-utils:RTR()
   | $crowdstrike/fdr-utils:ProcessExplorerTarget()
   | duration := _max - _min | case {duration != 0 | duration := formatDuration(duration); *}
