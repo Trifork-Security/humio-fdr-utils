@@ -44,7 +44,7 @@ jobs:
         run: |
           sed -i "s/\${VERSION}/${{ env.VERSION }}/" manifest.yaml
 
-      - uses: actions/upload-artifact@v2
+      - uses: actions/upload-artifact@v3
         with:
           name: ${{ github.event.repository.name }}-${{ env.VERSION }}
           path: |
